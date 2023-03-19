@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/ui/static/artist-page.css">
+</head>
+<body>
+  <center>
+        <a class="but" href="/">
+            <button class="button"> All artists</button>
+         </a>
+
+       
+        <h1 >{{.Name}}</h1>
+        
+        <img class="img"src = {{.Image}} alt = {{.Name}}>
+        
+        <div class="all">
+            <br>
+            
+            <div class="shortInfo">
+
+                <p>This artist/band started his musical career from {{.CreationDate}}.</p>
+           
+    
+                <p>First album of this artist/band was made in {{.FirstAlbum}}.</p>
+         
+     
+        
+            <p>Members:</p>
+            
+                {{range .Members}}
+                {{.}}
+                {{end}}
+          
+            
+                <p> Creation date:</p>
+                <p>{{.CreationDate}}</p>
+                <p>First album release:</p>
+                <p>{{.FirstAlbum}}</p>
+            </div>
+            
+            
+    
+    
+        <p class="concerts">Concerts:</p>
+        <table >
+            
+            {{range $location, $dates := .DatesLocations}}
+            <tr>
+                <td>{{$location}}</td>
+                <td>
+                    {{range $dates}}
+                    {{.}}<br>
+                    {{end}}
+                </td>
+            </tr>
+            {{end}}
+            
+        </table>
+        
+        
+    
+            </div>
+        </center>
+        </body>
+    </html>

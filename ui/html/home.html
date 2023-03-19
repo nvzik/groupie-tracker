@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+    <center>
+        <head>
+            <title> Groupie-tracker</title>
+            <link rel = "stylesheet" href = "/ui/static/home.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400&display=swap" rel="stylesheet">
+            <link rel="icon" type="image/x-icon" href="/ui/static/favicon.ico">
+        </head>
+        
+        
+        <body> 
+          
+            <h2> Groupie-tracker </h2>
+            
+        
+        <div class="forms">
+            <form action="/search/" method="get">
+                <div class="search-box">
+                    <button class="btn-search"><i class="fas fa-search"></i></button>
+                    
+                    <input class="input-search" list="artist" name="query" placeholder=" Search..." required>
+                    <datalist id="artist">
+                    {{range .}}
+                    <option value="{{.Name}}">{{.Name}}</option>
+                    {{range .Members}}
+                    <option value="{{.}}">{{.}} - member</option>
+                    {{end}} 
+                    <option value="{{.CreationDate}}">{{.CreationDate}} - creation_date</option> 
+                    <option value="{{.FirstAlbum}}">{{.FirstAlbum}} - first_album</option>
+                    {{range $location, $dates := .DatesLocations}}
+                    <option value="{{$location}}">{{$location}} - location</option>
+                    {{end}}
+                    {{end}}
+                </datalist> 
+                
+            </div>
+        </form> 
+        <form action="/filter/" method="get">
+            <div class="grid">
+
+               
+                    <div class="topleft">
+                       
+                            <p>Creation Date from:</p>
+                            <label class="topleft">
+                                <input type="range" min="1958" max="2015" value="1958" name="CreationDateFrom" oninput="this.nextElementSibling.value = this.value">
+                                <output class="topleft"> 1958 </output>
+                            </label>
+                        
+                        
+                            <p>Creation Date to:</p>
+                            <label class="topleft">
+                                <input type="range" min="1958" max="2015" value="2015" name="CreationDateTo" oninput="this.nextElementSibling.value = this.value">
+                                <output class="topleft"> 2015 </output>
+                            </label>
+                       
+                    </div>
+                    <div class="topmiddle">
+                        
+                         
+                                <p>First Album from:</p>
+                                <label> 
+                                    <input type="range" min="1963" max="2018" value="1963" name="FirstAlbumFrom" oninput="this.nextElementSibling.value = this.value">
+                                    <output class="albumOutput1"> 1963 </output>
+                                </label>
+                            
+                            
+                                <p>First Album to:</p>
+                                <label> 
+                                    <input type="range" min="1958" max="2018" value="2018" name="FirstAlbumTo" oninput="this.nextElementSibling.value = this.value">
+                                    <output class="albumOutput2"> 2018 </output>
+                                </label>
+                          
+                        
+                   
+                </div>
+            
+            
+            <div class="topright">
+
+            
+                    <p>Number of members:</p>
+                    <label class="checkbox-control"> 1
+                        <input type="checkbox" value="1" name="members"> 
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-control"> 2
+                        <input type="checkbox" value="2" name="members"> 
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-control"> 3
+                        <input type="checkbox" value="3" name="members"> 
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-control"> 4
+                        <input type="checkbox" value="4" name="members"> 
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-control"> 5
+                        <input type="checkbox" value="5" name="members"> 
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-control"> 6
+                        <input type="checkbox" value="6" name="members"> 
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-control"> 7
+                        <input type="checkbox" value="7" name="members"> 
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-control"> 8
+                        <input type="checkbox" value="8" name="members"> 
+                        <span class="checkmark"></span>
+                    </label>
+
+
+                
+                   <div class="searchLoc">
+                    <button class="btn-search"><i class="fas fa-search"></i></button>
+                    
+                    <input class="input-search" list="artist1" name="searchLoc" placeholder=" Search location...">
+                       <datalist id="artist1">
+                           {{range .}}
+                           {{range $location, $dates := .DatesLocations}}
+                           <option value="{{$location}}">{{$location}} - location</option>
+                           {{end}}
+                           {{end}}
+                        </datalist> 
+                    </div>
+            </div>
+            <div class="bottom">
+                
+                    <input type="submit" name="submit" value="Submit" class="submit"> 
+                
+            </div>
+  
+            
+    
+        </form>
+    </div>
+           {{if.}}
+          <div class = "all">
+                {{range .}}
+                <div  class = "name+img">
+                    <div   class="nameDiv"  > 
+                        <a class = "name"      href = "/artist/{{.Id}}" > {{.Name}} </a>
+                    </div>
+                    
+                        <a href="/artist/{{.Id}}" > <img class = "img" src= {{.Image}}></a>
+                    
+                </div>
+                {{end}}
+            </div>
+        {{else}}
+                    <h1><center>Empty match, try something different...</center></h1>
+                    {{end}}
+        </body>
+    </center>
+</html>
